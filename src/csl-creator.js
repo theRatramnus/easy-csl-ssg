@@ -288,7 +288,10 @@ export class CSLCreator {
     const types = Object.keys(info)
 
     for (const type of types) {
-      result += `<choose><if type="${type}" match="any">${this.createCSL(info[type])}</if></choose>`
+      if(typeof(type) ===  'string') 
+        result += `<choose><if type="${type}" match="any">${this.createCSL(info[type])}</if></choose>`
+      else // name variable
+        result += `<choose><if type="${type.name}" match="any">${this.createCSL(info[type[1]])}</if></choose>`
     }
 
     return result
