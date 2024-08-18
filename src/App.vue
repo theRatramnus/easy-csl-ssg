@@ -105,22 +105,34 @@ function loadCode(file) {
       <hr class="solid">
       <GeneralSettings v-model="generalSettings" ></GeneralSettings>
       <hr/>
-      <h2 class="leadingText">{{ uiTexts.downloadHeading }}</h2>
       <div class="hStack">
-        <button class="download-button" @click="downloadFile('style.csl', style)">{{ uiTexts.exportButton }}</button>
-        <button class="download-button" @click="saveCode()">{{ uiTexts.saveButton }}</button>
+        <div>
+          <h2 class="leadingText">{{ uiTexts.downloadHeading }}</h2>
+          <div class="hStack">
+            <button class="download-button" @click="downloadFile('style.csl', style)">{{ uiTexts.exportButton }}</button>
+            <button class="download-button" @click="saveCode()">{{ uiTexts.saveButton }}</button>
+          </div>
+          <hr/>
+          <h2 class="leadingText">{{ uiTexts.openHeading }}</h2>
+          <div class="hStack flex-start">
+            <button class="download-button" @click="loadCode(loadFile)" v-if="loadFile">{{ uiTexts.loadButton }}</button>
+            <input type="file" @change="loadFile = $event.target.files[0]" />
+          </div>
+        </div>
+        <iframe id='kofiframe' src='https://ko-fi.com/ludwigpatzold/?hidefeed=true&widget=true&embed=true&preview=true' class="kofi-widget" height='650' title='ludwigpatzold'></iframe>
       </div>
-      <hr/>
-      <h2 class="leadingText">{{ uiTexts.openHeading }}</h2>
-      <div class="hStack">
-        <button class="download-button" @click="loadCode(loadFile)" v-if="loadFile">{{ uiTexts.loadButton }}</button>
-        <input type="file" @change="loadFile = $event.target.files[0]" />
       </div>
-    </div>
   </div>
 </template>
 
 <style>
+.kofi-widget{
+  min-width: 285px;
+  max-width: 550px;
+  width: 100vw;
+  border:none;
+}
+
 .download-button {
   display: flex;
   align-items: center;
@@ -495,7 +507,7 @@ template {
 .hStack {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 .hStack > * {
   margin: 10px;

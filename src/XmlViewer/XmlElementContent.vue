@@ -10,7 +10,7 @@ import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
     props: {
-        node: Text
+        node: String
     },
     setup(props) {
         const content = computed(() => props.node.textContent)

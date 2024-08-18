@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="csl-style-generator-help">CSL Style Generator Help</h1>
+<p>Hi,<br>
+using the app may seem a bit daunting at first but don’t worry: there are just a few easy to understand concepts you’ll learn in no time!</p>
+<h2 id="section"></h2>
+<p>So here’s what you need to know:</p>
+<ul>
+<li>
+<p>Angle brackets (<code>&lt;&gt;</code> ) are used for variable placeholders. <code>&lt;title&gt;</code> for example will display the title.<br>
+You can find a list of all available variable placeholders <a href="#variable-placeholders">down below</a>.</p>
+</li>
+<li>
+<p>Square brackets (<code>[]</code>) are used for names.<br>
+The syntax for names is a bit more involved but quite intuitive still:<br>
+You first specify the type of name you want to display and then the way you display it.<br>
+Right now there are three types of name available: <code>author</code>, <code>editor</code> and <code>contributor</code>.<br>
+Let’s say John Doe authored a book. You can display his name in three different ways:</p>
+<ol>
+<li>only the family name, e.g. <code>Doe</code><br>
+code: <code>[author&lt;family&gt;]</code></li>
+<li>first given and then family name, e.g. <code>John Doe</code><br>
+code: <code>[author&lt;given&gt;&lt;family&gt;]</code></li>
+<li>family name, given name, e.g. <code>Doe, John</code><br>
+code: <code>[author&lt;family&gt;&lt;given&gt;]</code></li>
+</ol>
+<p>Abbreviating the given name is handled through a separate checkbox in the <code>Settings</code> section.</p>
+</li>
+<li>
+<p>Curly brackets (<code>{}</code>) are used for optional parts of your styling.<br>
+Let’s say you want to cite a chapter of a book. Your code includes a placeholder for the edition of the book like so:<br>
+<code>[author&lt;family&gt;], &lt;title&gt;, in: [editor&lt;family&gt;] (ed.), &lt;volumeTitle&gt;, &lt;place&gt;: &lt;publisher&gt;, &lt;edition&gt;, &lt;year&gt;, S. &lt;pages&gt;</code><br>
+But not all chapters in your database have an edition attached. If you happened to cite one of these, there would remain a “hull” of sorts around your <code>&lt;edition&gt;</code> placeholder, in this case a comma and a whitespace.<br>
+To avoid this we can wrap our <code>&lt;edition&gt;</code> placeholder with everything that is only supposed to be displayed if this is present in our database in curly brackets like so:	<code>{, &lt;edition&gt;}</code>. Now the comma and whitespace will only be displayed if there is an edition attached to the chapter.</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="important">Important:</h4>
+<p>Optional parts are shown on the condition that the <em>first</em> specified variable exists.<br>
+For example: <code>{, &lt;volumeTitle&gt;, &lt;edition&gt;}</code> will be shown if <code>&lt;volumeTitle&gt;</code> exists but regardless of wether <code>&lt;edition&gt;</code> exists or not.</p>
+</blockquote>
+<ul>
+<li>
+<p>Parentheses (<code>()</code>) are used to specify the font style that is used. There are three options available:</p>
+<ul>
+<li><code>(i)</code> will make the text italic.</li>
+<li><code>(b)</code>  will make the text bold.</li>
+<li><code>(sc)</code> will put the text in small caps.</li>
+</ul>
+<p>Combining the modifiers is also possible. They are used inside the angle brackets of a placeholder. Two examples:</p>
+<ul>
+<li><code>&lt;title(b)&gt;</code> will display the title in bold.</li>
+<li><code>[author&lt;family(i)(b)(sc)&gt;]</code> will display the authors family name in bold, italic and small caps.</li>
+</ul>
+</li>
+</ul>
+<h1 id="appendix">Appendix</h1>
+<h2 id="variable-placeholders">variable placeholders</h2>
+<ul>
+<li><code>title</code></li>
+<li><code>volumeTitle</code></li>
+<li><code>volumeNumber</code></li>
+<li><code>journal</code></li>
+<li><code>encyclopedia</code></li>
+<li><code>collection</code></li>
+<li><code>place</code></li>
+<li><code>edition</code></li>
+<li><code>pages</code></li>
+<li><code>shortTitle</code></li>
+<li><code>footnote</code> - the number of the first footnote to cite this item</li>
+</ul>
+<h2 id="section-1"></h2>
+<blockquote>
+<p>Written with StackEdit.</p>
+</blockquote>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hilfe</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="csl-stil-generator-hilfe">CSL-Stil-Generator-Hilfe</h1>
+<p>Hallo,<br>
+am Anfang sieht die App vielleicht ziemlich kompliziert aus, aber keine Sorge: es gibt nur ein paar leicht verständliche Konzepte, die Du im Handumdrehen lernen wirst!</p>
+<h2 id="section"></h2>
+<p>Das musst du wissen:</p>
+<ul>
+<li>
+<p>Spitze Klammern (<code>&lt;&gt;</code>) werden für Variablenplatzhalter verwendet. <code>&lt;Titel&gt;</code> beispielsweise zeigt den Titel an.<br>
+Eine Liste aller verfügbaren Variablenplatzhalter findest du <a href="#variablenplatzhalter">weiter unten</a>.</p>
+</li>
+<li>
+<p>Eckige Klammern (<code>[]</code>) werden für Namen verwendet.<br>
+Die Syntax für Namen ist etwas komplexer, aber dennoch recht intuitiv:<br>
+Zuerst gibst du den Typ des Namens an, den du anzeigen möchtest, und dann die Art und Weise, wie du ihn anzeigen möchtest.<br>
+Derzeit sind drei Arten von Namen verfügbar: <code>Autor</code>, <code>Herausgeber</code> und <code>Editor</code>.<br>
+Angenommen, Max Mustermann hat ein Buch geschrieben. Du kannst seinen Namen auf drei verschiedene Arten anzeigen:</p>
+<ol>
+<li>
+<p>Nur der Nachname, z. B. <code>Mustermann</code><br>
+Code: <code>[Autor&lt;Nachname&gt;]</code></p>
+</li>
+<li>
+<p>Vorname und dann Nachname, z. B. <code>Max Mustermann</code><br>
+Code: <code>[Autor&lt;Vorname&gt;&lt;Nachname&gt;]</code></p>
+</li>
+<li>
+<p>Nachname, Vorname, z. B. <code>Mustermann, Max</code><br>
+Code: <code>[Autor&lt;Nachname&gt;&lt;Vorname&gt;]</code></p>
+<p>Die Abkürzung des Vornamens wird über eine separate Checkbox im Abschnitt <code>Einstellungen</code> gehandhabt.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Geschweifte Klammern (<code>{}</code>) werden für optionale Teile deines Stils verwendet.<br>
+Angenommen, du möchtest einen Aufsatz in einem Sammelband zitieren. Dein Code enthält einen Platzhalter für die Auflage des Buches wie folgt:<br>
+<code>[Autor&lt;Nachname&gt;], &lt;Titel&gt;, in: [Herausgeber&lt;Nachname&gt;] (Hrsg.), &lt;Bandtitel&gt;, &lt;Ort&gt;: &lt;Verlag&gt;, &lt;Auflage&gt;, &lt;Jahr&gt;, S. &lt;Seiten&gt;</code><br>
+Aber nicht alle Aufsätze in deiner Datenbank haben eine Angabe zur Auflage. Wenn du einen dieser Aufsätze zitierst, bleibt eine “Hülle” um deinen <code>&lt;Auflage&gt;</code>-Platzhalter übrig, in diesem Fall ein Komma und ein Leerzeichen.<br>
+Um dies zu vermeiden, können wir unseren <code>&lt;Auflage&gt;</code>-Platzhalter mit allem, was nur angezeigt werden soll, wenn dies in unserer Datenbank vorhanden ist, in geschweifte Klammern setzen: <code>{, &lt;Auflage&gt;}</code>. Jetzt werden das Komma und das Leerzeichen nur angezeigt, wenn auch ein Feld zur Auflage in der Datenbank existiert.</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="wichtig">Wichtig:</h4>
+<p>Optionale Teile werden unter der Bedingung angezeigt, dass die <em>erste</em> angegebene Variable existiert.<br>
+Beispiel: <code>{, &lt;Bandtitel&gt;, &lt;Auflage&gt;}</code> wird angezeigt, wenn <code>&lt;Bandtitel&gt;</code> existiert, unabhängig davon, ob <code>&lt;Auflage&gt;</code> existiert oder nicht.</p>
+</blockquote>
+<ul>
+<li>
+<p>Klammern (<code>()</code>) werden verwendet, um den verwendeten Schriftstil anzugeben. Es gibt drei verfügbare Optionen:</p>
+<ul>
+<li><code>(i)</code> macht den Text kursiv.</li>
+<li><code>(b)</code> macht den Text fett.</li>
+<li><code>(sc)</code> setzt den Text in Kapitälchen.</li>
+</ul>
+<p>Das Kombinieren der Modifikatoren ist ebenfalls möglich. Sie werden innerhalb der spitzen Klammern eines Platzhalters verwendet. Zwei Beispiele:</p>
+<ul>
+<li><code>&lt;Titel(b)&gt;</code> macht den Titel fett.</li>
+<li><code>[Autor&lt;Nachname(i)(b)(sc)&gt;]</code> zeigt den Nachnamen des Autors fett, kursiv und in Kapitälchen an.</li>
+</ul>
+</li>
+</ul>
+<h1 id="anhang">Anhang</h1>
+<h2 id="variablenplatzhalter">Variablenplatzhalter</h2>
+<ul>
+<li><code>Titel</code></li>
+<li><code>Bandtitel</code></li>
+<li><code>Bandnummer</code></li>
+<li><code>Zeitschrift</code></li>
+<li><code>Lexikon</code></li>
+<li><code>Reihe</code></li>
+<li><code>Ort</code></li>
+<li><code>Auflage</code></li>
+<li><code>Seiten</code></li>
+<li><code>Kurztitel</code></li>
+<li><code>FN</code> - die Fußnote in der das Werk zuerst zitiert wurde</li>
+</ul>
+<h2 id="section-1"></h2>
+<blockquote>
+<p>Mit StackEdit geschrieben.</p>
+</blockquote>
+</div>
+</body>
+
+</html>
