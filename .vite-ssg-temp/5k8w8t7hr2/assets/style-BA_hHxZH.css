@@ -1,126 +1,192 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import {
-  stylers as rawStylers,
-  createStylers,
-  getStyle,
-  adoptCitationFromBibStylers,
-  getStylerIds,
-  bibSettings,
-  citSettings,
-  citSpecials,
-  generalSettings,
-  packageInfo,
-  loadInfo,
-} from './styler'
-import StylerComponent from './StylerComponent.vue'
-//import XmlViewer from './XmlViewer/XmlViewer.vue'
-import StylerSettings from './StylerSettings.vue'
-import CitationSpecials from './CitationSpecials.vue'
-import GeneralSettings from './GeneralSettings.vue'
-import { currentLocalization } from './localization'
-import HelpButton from './HelpButton.vue'
 
-const uiTexts = currentLocalization()
-
-const isLoading = ref(true)
-const stylers = ref(null)
-const loadFile = ref(null)
-let style
-
-async function loadData() {
-  try {
-    // Create the models
-    await createStylers()
-    // Load the data
-    stylers.value = rawStylers
-    style = getStyle()
-  } catch (error) {
-    console.error('Error loading data:', error)
-  } finally {
-    isLoading.value = false // Set loading to false once data is loaded
-  }
+.hta-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden !important;
+  text-size-adjust: none !important;
+}
+.hta-background {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+.hta-highlights {
+  width: auto !important;
+  height: auto !important;
+  border-style: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow: hidden !important;
+}
+.hta-text {
+  text-align: left;
+  font-family: monospace;
+  font-size: 1.2em;
+  margin: 0;
+  padding: 0;
+}
+.hta-input {
+  display: block !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  color: transparent !important;
+  background: none transparent !important;
+  width: 100% !important;
+  height: 7em !important;
+  border-style: none !important;
+  resize: none !important;
+  outline: none !important;
+  caret-color: #333;
+}
+.hta-highlight {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-style: none !important;
+  font: inherit;
+  color: inherit;
+}
+.hta-highlight-color {
+  background-color: inherit;
 }
 
-onMounted(() => {
-  loadData()
-})
 
-function downloadFile(filename, text) {
-  const element = document.createElement('a')
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-  element.setAttribute('download', filename)
-
-  document.body.appendChild(element)
-  element.click()
-  document.body.removeChild(element)
+.hta-border {
+  padding: 3px;
+  border: solid 1px #a9a9a9;
+  border-radius: 3px;
+  display: flex;
+}
+.hta-border-focus {
+  border-color: #90bafe;
+}
+.hta-border .hta-container {
+  flex: 1 1 auto;
 }
 
-function saveCode(){
-  downloadFile('csl.json', JSON.stringify(packageInfo()))
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 50%;
+  margin: 10px;
+  padding: 25px;
+  padding-top: 10px;
+  text-align: left;
+  border-radius: 25px;
+}
+.flex-container > div.output {
+  padding: 25px;
+}
+textarea {
+  width: 95%;
+  height: 8em;
+  padding: 0.5em;
+  font-family: monospace;
+  font-size: 1.2em;
+  color: #444;
+  border: none;
+  resize: none;
+  border-radius: 0.5em;
 }
 
-function loadCode(file) {
-  const reader = new FileReader();
-  reader.readAsText(file, "UTF-8");
-  reader.onload = function (evt) {
-    const info = JSON.parse(evt.target.result)
-    loadInfo(info)
-  }
+.bracket[data-v-946fd11e] {
+    color: var(--xml-viewer-bracket-color);
+}
+.element-name[data-v-946fd11e] {
+    color: var(--xml-viewer-element-name-color);
 }
 
-</script>
+.content[data-v-db034d0f] {
+    color: var(--xml-viewer-element-content-color);
+}
 
-<template>
-  <div>
-    <!-- Skeleton view -->
-    <div v-if="isLoading" class="skeleton-view">
-      <p>Loading...</p>
-    </div>
+.attribute-name[data-v-84f62d24] {
+    color: var(--xml-viewer-attribute-name-color);
+}
 
-    <!-- Actual content view -->
-    <div v-else class="content-view">
-      <div class="hStack">
-        <h1>{{ uiTexts.appTitle }}</h1>
-        <HelpButton></HelpButton>
-      </div>
+.attribute-value[data-v-e1b8b638] {
+    color: var(--xml-viewer-attribute-value-color);
+    padding: 0;
+    margin: 0;
+}
 
-      <div class="hStack">
-        <h2>{{ uiTexts.bibliography }}</h2>
-      </div>
-      <div v-for="id in getStylerIds('bib')" :key="id">
-        <StylerComponent :stylerID="id"></StylerComponent>
-      </div>
-      <StylerSettings v-model="bibSettings" :prefix="'bib'" />
-      <hr class="solid">
-      <div class="hStack">
-        <h2>{{ uiTexts.citation }}</h2>
-        <button @click="adoptCitationFromBibStylers()">{{ uiTexts.sameAsBibliographyButton}}</button>
-      </div>
-      <div v-for="id in getStylerIds('cit')" :key="id">
-        <StylerComponent :stylerID="id"></StylerComponent>
-      </div>
-      <StylerSettings v-model="citSettings" :prefix="'cit'"></StylerSettings>
-      <CitationSpecials v-model="citSpecials"></CitationSpecials>
-      <hr class="solid">
-      <GeneralSettings v-model="generalSettings" ></GeneralSettings>
-      <hr/>
-      <h2 class="leadingText">{{ uiTexts.downloadHeading }}</h2>
-      <div class="hStack">
-        <button class="download-button" @click="downloadFile('style.csl', style)">{{ uiTexts.exportButton }}</button>
-        <button class="download-button" @click="saveCode()">{{ uiTexts.saveButton }}</button>
-      </div>
-      <hr/>
-      <h2 class="leadingText">{{ uiTexts.openHeading }}</h2>
-      <div class="hStack">
-        <button class="download-button" @click="loadCode(loadFile)" v-if="loadFile">{{ uiTexts.loadButton }}</button>
-        <input type="file" @change="loadFile = $event.target.files[0]" />
-      </div>
-    </div>
-  </div>
-</template>
+.no-margin-padding[data-v-f54aa108] {
+    margin: 0;
+    padding: 0;
+}
+.margin-left-sm[data-v-f54aa108] {
+    margin-left: 8px;
+}
+.assignment[data-v-f54aa108] {
+    color: var(--xml-viewer-assignment-color);
+}
+.quote[data-v-f54aa108] {
+    color: var(--xml-viewer-quote-color);
+}
 
-<style>
+.content[data-v-4e471db6] {
+    color: var(--xml-viewer-cdata-content-color);
+}
+.inline[data-v-4e471db6] {
+    display: inline;
+}
+.no-margin-padding[data-v-4e471db6] {
+    margin: 0;
+    padding: 0;
+}
+
+.content[data-v-5db6b91e] {
+    color: var(--xml-viewer-remark-content-color);
+}
+.inline[data-v-5db6b91e] {
+    display: inline;
+}
+.no-margin-padding[data-v-5db6b91e] {
+    margin: 0;
+    padding: 0;
+}
+
+.xml-element[data-v-4bc8ab8e] {
+    white-space: nowrap;
+    font-size: 14px;
+    font-family: Consolas, Menlo, Courier, monospace;
+}
+.bracket[data-v-4bc8ab8e], .dots[data-v-4bc8ab8e] {
+    color: var(--xml-viewer-bracket-color);
+}
+.caret[data-v-4bc8ab8e] {
+    color: var(--xml-viewer-bracket-color);
+    fill: var(--xml-viewer-bracket-color);
+}
+.child-elements>div[data-v-4bc8ab8e] {
+    margin-left: 20px;
+}
+.clickable[data-v-4bc8ab8e] {
+    cursor: pointer;
+}
+
+input {
+  width: 100%;
+}
+
+
+.help-button {
+  height: 2em;
+  width: 2em;
+  background: #ccc;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
 .download-button {
   display: flex;
   align-items: center;
@@ -135,7 +201,6 @@ function loadCode(file) {
   transition: 0.3s;
   background-color: #000000;
 }
-
 .download-button:hover {
   opacity: .7;
 }
@@ -148,7 +213,6 @@ function loadCode(file) {
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -160,7 +224,6 @@ html {
 /**
  * Remove the margin in all browsers.
  */
-
 body {
   margin: 10;
   font-family: Arial, Helvetica, sans-serif;
@@ -169,7 +232,6 @@ body {
 /**
  * Render the `main` element consistently in IE.
  */
-
 main {
   display: block;
 }
@@ -178,7 +240,6 @@ main {
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
-
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
@@ -191,7 +252,6 @@ h1 {
  * 1. Add the correct box sizing in Firefox.
  * 2. Show the overflow in Edge and IE.
  */
-
 hr {
   box-sizing: content-box; /* 1 */
   height: 0; /* 1 */
@@ -202,7 +262,6 @@ hr {
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-
 pre {
   font-family: monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
@@ -214,7 +273,6 @@ pre {
 /**
  * Remove the gray background on active links in IE 10.
  */
-
 a {
   background-color: transparent;
 }
@@ -223,7 +281,6 @@ a {
  * 1. Remove the bottom border in Chrome 57-
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
-
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
@@ -233,7 +290,6 @@ abbr[title] {
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
-
 b,
 strong {
   font-weight: bolder;
@@ -243,7 +299,6 @@ strong {
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-
 code,
 kbd,
 samp {
@@ -254,7 +309,6 @@ samp {
 /**
  * Add the correct font size in all browsers.
  */
-
 small {
   font-size: 80%;
 }
@@ -263,7 +317,6 @@ small {
  * Prevent `sub` and `sup` elements from affecting the line height in
  * all browsers.
  */
-
 sub,
 sup {
   font-size: 75%;
@@ -271,11 +324,9 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
-
 sub {
   bottom: -0.25em;
 }
-
 sup {
   top: -0.5em;
 }
@@ -286,7 +337,6 @@ sup {
 /**
  * Remove the border on images inside links in IE 10.
  */
-
 img {
   border-style: none;
 }
@@ -298,7 +348,6 @@ img {
  * 1. Change the font styles in all browsers.
  * 2. Remove the margin in Firefox and Safari.
  */
-
 button,
 input,
 optgroup,
@@ -314,7 +363,6 @@ textarea {
  * Show the overflow in IE.
  * 1. Show the overflow in Edge.
  */
-
 button,
 input {
   /* 1 */
@@ -325,7 +373,6 @@ input {
  * Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 1. Remove the inheritance of text transform in Firefox.
  */
-
 button,
 select {
   /* 1 */
@@ -335,7 +382,6 @@ select {
 /**
  * Correct the inability to style clickable types in iOS and Safari.
  */
-
 button,
 [type='button'],
 [type='reset'],
@@ -346,7 +392,6 @@ button,
 /**
  * Remove the inner border and padding in Firefox.
  */
-
 button::-moz-focus-inner,
 [type='button']::-moz-focus-inner,
 [type='reset']::-moz-focus-inner,
@@ -358,7 +403,6 @@ button::-moz-focus-inner,
 /**
  * Restore the focus styles unset by the previous rule.
  */
-
 button:-moz-focusring,
 [type='button']:-moz-focusring,
 [type='reset']:-moz-focusring,
@@ -369,7 +413,6 @@ button:-moz-focusring,
 /**
  * Correct the padding in Firefox.
  */
-
 fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
@@ -380,7 +423,6 @@ fieldset {
  * 3. Remove the padding so developers are not caught out when they zero out
  *    `fieldset` elements in all browsers.
  */
-
 legend {
   box-sizing: border-box; /* 1 */
   color: inherit; /* 2 */
@@ -393,7 +435,6 @@ legend {
 /**
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
-
 progress {
   vertical-align: baseline;
 }
@@ -401,7 +442,6 @@ progress {
 /**
  * Remove the default vertical scrollbar in IE 10+.
  */
-
 textarea {
   overflow: auto;
 }
@@ -410,7 +450,6 @@ textarea {
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
  */
-
 [type='checkbox'],
 [type='radio'] {
   box-sizing: border-box; /* 1 */
@@ -420,7 +459,6 @@ textarea {
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-
 [type='number']::-webkit-inner-spin-button,
 [type='number']::-webkit-outer-spin-button {
   height: auto;
@@ -430,7 +468,6 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-
 [type='search'] {
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
@@ -439,7 +476,6 @@ textarea {
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
-
 [type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
@@ -448,7 +484,6 @@ textarea {
  * 1. Correct the inability to style clickable types in iOS and Safari.
  * 2. Change font properties to `inherit` in Safari.
  */
-
 ::-webkit-file-upload-button {
   -webkit-appearance: button; /* 1 */
   font: inherit; /* 2 */
@@ -460,7 +495,6 @@ textarea {
 /*
  * Add the correct display in Edge, IE 10+, and Firefox.
  */
-
 details {
   display: block;
 }
@@ -468,7 +502,6 @@ details {
 /*
  * Add the correct display in all browsers.
  */
-
 summary {
   display: list-item;
 }
@@ -479,7 +512,6 @@ summary {
 /**
  * Add the correct display in IE 10+.
  */
-
 template {
   display: none;
 }
@@ -487,11 +519,9 @@ template {
 /**
  * Add the correct display in IE 10.
  */
-
 [hidden] {
   display: none;
 }
-
 .hStack {
   display: flex;
   flex-direction: row;
@@ -500,7 +530,6 @@ template {
 .hStack > * {
   margin: 10px;
 }
-
 .leadingText{
   text-align: start !important;
 }
@@ -515,4 +544,3 @@ hr.rounded {
 hr.solid {
   color: inherit;
 }
-</style>
