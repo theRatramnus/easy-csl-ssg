@@ -211,7 +211,7 @@ export class CSLCreator {
         result += this.createCSLGroupBlock(placeholder)
         break
       case 'facultative':
-        result += `<choose><if variable="${this.cslDictionary[this.determineIfVariable(placeholder.content)]}" match="any">${placeholder.content.reduce(
+        result += `<choose><if variable="${this.determineIfVariable(placeholder.content)}" match="any">${placeholder.content.reduce(
           (accumulator, currentValue) => accumulator + this.createCSLBlock(currentValue),
           ''
         )}</if></choose>`
@@ -221,16 +221,27 @@ export class CSLCreator {
     return result
   }
   determineIfVariable(content) {
-    //console.log(content)
+    //console.log(JSON.stringify(content))
     const variable = content.find((el) => el.type === 'variable')
     //console.log(variable)
     if (variable) {
-      return variable.content
-    } else {
+      const dictKey = variable.content
+      let dictEntry = this.cslDictionary[dictKey]
+      if (!(typeof dictEntry === 'string')) { // date
+        //console.log(dictKey, dictEntry.variable)
+        return dictEntry.variable
+      }
+      //console.log(dictKey, dictEntry)
+      return dictEntry
+    } else { // names
       const name = content.find((el) => el.type === 'group')
       //console.log(name)
-      return name.content[0].content
+      const dictKey = name.content[0].content
+      const dictEntry = this.cslDictionary[dictKey]
+      //console.log(dictKey, dictEntry)
+      return dictEntry.name
     }
+    
   }
 
   // Create CSL group block for group placeholders
@@ -287,11 +298,9 @@ export class CSLCreator {
     let result = ''
     const types = Object.keys(info)
 
-    for (const type of types) {
-      if(typeof(type) ===  'string') 
+    for (const type of types) { 
         result += `<choose><if type="${type}" match="any">${this.createCSL(info[type])}</if></choose>`
-      else // name variable
-        result += `<choose><if type="${type.name}" match="any">${this.createCSL(info[type[1]])}</if></choose>`
+
     }
 
     return result

@@ -118,7 +118,7 @@ export class CSLEngine {
     rawCitations.push(createCitation(item1, 4))
 
     const result = this.citeproc.rebuildProcessorState(rawCitations)
-    .warn(result)
+    //console.warn(result)
 
     // clean up
     const preview = {
