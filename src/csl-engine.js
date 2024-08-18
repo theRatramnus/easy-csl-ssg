@@ -80,14 +80,14 @@ export class CSLEngine {
   previewBibliographyForType(type) {
     if (!this.typeLookup[type]) return 'type not found'
     const bibliography = this.createBibliography([this.typeLookup[type]])
-    console.log('created bibliography for', type, bibliography[0])
+    //console.log('created bibliography for', type, bibliography[0])
     return bibliography[1][0]
   }
   previewCitationForType(type) {
     if (!this.typeLookup[type]) return 'type not found'
     const result = this.createCitation(this.typeLookup[type])
     const citation = result[1][0][1]
-    console.log('created citation for', type, citation)
+    //console.log('created citation for', type, citation)
     return citation
   }
   previewCitationSpecials() {
@@ -118,7 +118,7 @@ export class CSLEngine {
     rawCitations.push(createCitation(item1, 4))
 
     const result = this.citeproc.rebuildProcessorState(rawCitations)
-    console.warn(result)
+    .warn(result)
 
     // clean up
     const preview = {

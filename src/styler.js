@@ -111,16 +111,16 @@ export function getStylerIds(prefix) {
 }
 
 export function adoptCitationFromBibStylers() {
-  console.log('adoptCitationFromBibStylers()')
+  //console.log('adoptCitationFromBibStylers()')
   const bibStylers = getBibStylers()
   const citStylers = getCitStylers()
-  console.log('bibStylers:', bibStylers)
-  console.log('citStylers:', citStylers)
+  //console.log('bibStylers:', bibStylers)
+  //console.log('citStylers:', citStylers)
   for (let i = 0; i < citStylers.length; i++) {
-    console.log(`Copying code from bibStylers[${i}] to citStylers[${i}]`)
+    //console.log(`Copying code from bibStylers[${i}] to citStylers[${i}]`)
     citStylers[i].code.value = bibStylers[i].code.value
     citStylers[i].update()
-    console.log(`citStylers[${i}].code:`, citStylers[i].code)
+    //console.log(`citStylers[${i}].code:`, citStylers[i].code)
   }
 }
 
@@ -228,11 +228,3 @@ export function loadInfo(info) {
   bibSettings = info.bibliography.settings
 }
 
-const exampleGeneralInfo = createGeneralInfo(
-  'My CSL Style',
-  'my-csl-style',
-  'John Doe',
-  'This is a brief summary of my CSL style.',
-  '2022-01-01',
-  '2022-01-15'
-)

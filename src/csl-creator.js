@@ -41,7 +41,7 @@ export class CSLCreator {
     const regex = /([{][^{}]*[}]|[[][^[\]]*[\]]|[<][^<>]*[>])|([^{}<>[\]]+)/g
     const matches = []
     let match
-    console.log('Now processing ' + text)
+    //console.log('Now processing ' + text)
     // Iterate over each match from the regular expression
     while ((match = regex.exec(text)) !== null) {
       //console.log(match[0])
@@ -55,8 +55,8 @@ export class CSLCreator {
         ) {
           case '{':
             type = 'facultative'
-            console.log('HERE')
-            console.log(match[1])
+            //console.log('HERE')
+            //console.log(match[1])
             // Recursively parse nested placeholders if they exist
             matches.push({ content: this.parseNestedPlaceholders(content), styling: null, type })
             break
@@ -129,7 +129,7 @@ export class CSLCreator {
       if (nestedMatch.index > lastIndex) {
         // Add the text between the placeholders as type 'text'
         results.push({ content: content.substring(lastIndex, nestedMatch.index), type: 'text' })
-        console.log('text oben' + content.substring(lastIndex, nestedMatch.index))
+        //console.log('text oben' + content.substring(lastIndex, nestedMatch.index))
       }
       // Handle the nested placeholder
       // Check if the current match is a variable placeholder
@@ -157,7 +157,7 @@ export class CSLCreator {
       else {
         // Add the text between the last match and the current match as type 'text'
         results.push({ content: content.substring(lastIndex, nestedMatch.index), type: 'text' })
-        console.log('text unten' + content.substring(lastIndex, nestedMatch.index))
+        //console.log('text unten' + content.substring(lastIndex, nestedMatch.index))
       }
     }
     // Check if there is any remaining text after the last match
@@ -186,9 +186,9 @@ export class CSLCreator {
   // Create CSL block for a variable placeholder
   createVariableCSLBlock(placeholder) {
     let variableInfo = this.cslDictionary[placeholder.content]
-    console.log(placeholder.content)
+    /*console.log(placeholder.content)
     console.log(variableInfo)
-    console.log(typeof variableInfo)
+    console.log(typeof variableInfo)*/
     if (typeof variableInfo === 'string') {
       return `<text variable="${variableInfo}" ${placeholder.styling ? placeholder.styling : ''} />`
     } else if (variableInfo.type === 'date') {
@@ -221,14 +221,14 @@ export class CSLCreator {
     return result
   }
   determineIfVariable(content) {
-    console.log(content)
+    //console.log(content)
     const variable = content.find((el) => el.type === 'variable')
-    console.log(variable)
+    //console.log(variable)
     if (variable) {
       return variable.content
     } else {
       const name = content.find((el) => el.type === 'group')
-      console.log(name)
+      //console.log(name)
       return name.content[0].content
     }
   }
@@ -258,7 +258,7 @@ export class CSLCreator {
   // Create CSL representation for all placeholders
   createCSL(text) {
     const placeholders = this.parsePlaceholdersAndText(text)
-    console.log(JSON.stringify(placeholders))
+    //console.log(JSON.stringify(placeholders))
     let result = ''
     for (let placeholder of placeholders) {
       if (placeholder.type === 'group') {
@@ -278,7 +278,7 @@ export class CSLCreator {
     var jsonRepresentation = convert.xml2json(text, convertOptions)
     text = convert.json2xml(jsonRepresentation, convertOptions)
 
-    console.log('generated style:', text)
+    //console.log('generated style:', text)
 
     return text
   }
@@ -361,7 +361,7 @@ export class CSLCreator {
 
     result += this.createStyleHead(info.general)
     result += this.bundleLocaleUpdates(info.locale)
-    console.warn(JSON.stringify(info.bibliography.settings))
+    //console.warn(JSON.stringify(info.bibliography.settings))
     this.setCreatorParameters(info.bibliography.settings)
     result += wrapCSLPart('bibliography', this.createTypeChooser(info.bibliography.content))
     this.setCreatorParameters(info.citation.settings)
