@@ -25,6 +25,8 @@ const en = {
   loadButton: 'Load',
   exportButton: 'Export',
   viewerHeading: 'View Style',
+    kofiGreeting: 'Did you like the app?',
+  contributeHeading: 'Contribute',
   stylerDefaults: {
     book: '[author<given><family(sc)>], <title(i)>{ (<collection>}{, <volumeNumber>)}, <place>: <publisher>, {<edition>, }<year>',
     chapter:
@@ -115,6 +117,8 @@ const de = {
   exportButton: 'Exportieren',
   viewerHeading: 'Ansehen',
   openHeading: 'Öffnen',
+  kofiGreeting: 'Hat Dir die Web-App gefallen?',
+  contributeHeading: 'Mitarbeiten',
   stylerDefaults: {
     book: '[Autor<Vorname><Name(sc)>], <Titel(i)>{ (<Reihentitel>}{, <Bd.-Nr.>)}, <Ort>: <Verlagsname>, {<Auflage>, }<Jahr>',
     chapter:
