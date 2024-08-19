@@ -84,6 +84,7 @@ function loadCode(file) {
         <h1>{{ uiTexts.appTitle }}</h1>
         <HelpButton></HelpButton>
       </div>
+      <p class="leadingText" style="margin: 0.67em;">{{ uiTexts.appDescription }}</p>
 
       <div class="hStack">
         <h2>{{ uiTexts.bibliography }}</h2>
@@ -109,8 +110,14 @@ function loadCode(file) {
         <div>
           <h2 class="leadingText">{{ uiTexts.downloadHeading }}</h2>
           <div class="hStack">
-            <button class="download-button" @click="downloadFile('style.csl', style)">{{ uiTexts.exportButton }}</button>
-            <button class="download-button" @click="saveCode()">{{ uiTexts.saveButton }}</button>
+            <button class="download-button" @click="downloadFile('style.csl', style)">
+              <p style="font-size: 1.5em;">{{ uiTexts.exportButton }}</p>
+              <p>{{ uiTexts.exportButtonTooltip }}</p>
+            </button>
+            <button class="download-button" @click="saveCode()">
+              <p style="font-size: 1.5em;">{{ uiTexts.saveButton }}</p>
+              <p>{{ uiTexts.saveButtonTooltip }}</p>
+            </button>
           </div>
           <hr/>
           <h2 class="leadingText">{{ uiTexts.openHeading }}</h2>
@@ -127,7 +134,7 @@ function loadCode(file) {
               </a>
           </div>
         </div>
-        <div>
+        <div style="width: 100%;">
           <p>{{ uiTexts.kofiGreeting }}</p>
           <iframe id='kofiframe' src='https://ko-fi.com/ludwigpatzold/?hidefeed=true&widget=true&embed=true&preview=true' class="kofi-widget" height='650' title='ludwigpatzold'></iframe>
         </div>
@@ -153,18 +160,13 @@ function loadCode(file) {
 }
 
 .download-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  text-decoration: none;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 12px;
   border-radius: 5px;
   width: 200px;
-  height: 40px;
   transition: 0.3s;
   background-color: #000000;
+  line-height:2px;
 }
 
 .download-button:hover {
@@ -194,7 +196,7 @@ html {
 
 body {
   margin: 10;
-  font-family: Arial, Helvetica, sans-serif;
+ /* font-family: Arial, Helvetica, sans-serif;*/
 }
 
 /**

@@ -50,7 +50,7 @@ textarea {
 
 <template>
   <div class="flex-container">
-    <div class="blog-post">
+    <div>
       <h4>{{ styler.info.name }}</h4>
       <HilightTextArea
         v-model="code"

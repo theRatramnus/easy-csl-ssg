@@ -1,5 +1,6 @@
 const en = {
   appTitle: 'CSL Style Generator',
+  appDescription: 'Generate your own CSL style file to format your citations.',
   bibliography: 'Bibliography',
   settings: 'Settings',
   nameDelimiterSetting: 'name delimiter',
@@ -22,10 +23,12 @@ const en = {
   downloadHeading: 'Save Your Work',
   openHeading: 'Open',
   saveButton: 'Save',
+  saveButtonTooltip: 'to reopen in this editor',
   loadButton: 'Load',
   exportButton: 'Export',
+  exportButtonTooltip: 'for the citation manager',
   viewerHeading: 'View Style',
-    kofiGreeting: 'Did you like the app?',
+  kofiGreeting: 'Did you like the app?',
   contributeHeading: 'Contribute',
   stylerDefaults: {
     book: '[author<given><family(sc)>], <title(i)>{ (<collection>}{, <volumeNumber>)}, <place>: <publisher>, {<edition>, }<year>',
@@ -92,6 +95,7 @@ const en = {
 }
 const de = {
   appTitle: 'CSL-Stil-Generator',
+  appDescription: 'Erstelle Deinen eigenen CSL-Stil um Deine Zitate zu formatieren.',
   bibliography: 'Bibliographie',
   settings: 'Einstellungen',
   nameDelimiterSetting: 'Trennzeichen für Namen',
@@ -113,8 +117,10 @@ const de = {
   etalTerm: 'et al.-Form',
   downloadHeading: 'Sichern',
   saveButton: 'Speichern',
+  saveButtonTooltip: 'für diesen Editor',
   loadButton: 'Laden',
   exportButton: 'Exportieren',
+  exportButtonTooltip: 'für den Literaturmanager',
   viewerHeading: 'Ansehen',
   openHeading: 'Öffnen',
   kofiGreeting: 'Hat Dir die Web-App gefallen?',
