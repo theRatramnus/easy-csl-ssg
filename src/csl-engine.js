@@ -152,13 +152,13 @@ class Locale {
     var parser = new DOMParser()
     var xmlDoc = parser.parseFromString(this.locale, 'application/xml')
 
-    // Find the <term name="et-al"> element
-    var etAlTerm = xmlDoc.querySelector(`term[name="${term}"]`)
+    // Find the <term name="{{ term }}"> element
+    var oldTerm = xmlDoc.querySelector(`term[name="${term}"]`)
 
     // Check if the element exists
-    if (etAlTerm) {
+    if (oldTerm) {
       // Update the value of the element
-      etAlTerm.textContent = newValue
+      oldTerm.textContent = newValue
     }
 
     // Serialize the DOM object back to a string

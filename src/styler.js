@@ -182,7 +182,7 @@ export function packageInfo() {
 
   const generalInfo = createGeneralInfo(generalSettings.name, generalSettings.author, generalSettings.description)
 
-  Styler.cslEngine.locale.updateTerm('etal', generalSettings.etalTerm)
+  Styler.cslEngine.locale.updateTerm('et-al', generalSettings.etalTerm)
   Styler.cslEngine.updateTerm('ibid', citSpecials.ibidTerm)
   const locale = Styler.cslEngine.locale.getLocaleUpdates()
 
