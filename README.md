@@ -3,7 +3,7 @@ An easy to use generator for CSL (Citation Style Language) files to use in a cit
 
 Hosted on GitHub pages: https://theratramnus.github.io/easy-csl-ssg/.
 
-If you like the project, why don't you [https://storage.ko-fi.com/cdn/kofi2.png?v=3](https://ko-fi.com/P5P2Y9CL5)?
+If you like the project, why don't you [[https://storage.ko-fi.com/cdn/kofi2.png?v=3]](https://ko-fi.com/P5P2Y9CL5)?
 
 ## Contribute
 
