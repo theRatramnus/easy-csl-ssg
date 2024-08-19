@@ -3,7 +3,8 @@ An easy to use generator for CSL (Citation Style Language) files to use in a cit
 
 Hosted on GitHub pages: https://theratramnus.github.io/easy-csl-ssg/.
 
-If you like the project, why don't you [!["Buy Me A Coffee"](https://storage.ko-fi.com/cdn/kofi2.png?v=3)](https://ko-fi.com/P5P2Y9CL5)?
+If you like the project, why don't you 
+<a href='https://ko-fi.com/P5P2Y9CL5' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 
 ## Contribute
 
