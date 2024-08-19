@@ -1,6 +1,8 @@
 # easy-csl-ssg
 An easy to use generator for CSL (Citation Style Language) files to use in a citation manager (e.g. Zotero).
 
+<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'P5P2Y9CL5');kofiwidget2.draw();</script> 
+
 ## Contribute
 
 Expanding the project is very easy, you don't really need to know how to code and you can do it right here in the browser.
