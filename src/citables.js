@@ -41,8 +41,8 @@ export const citables = [
     ],
     editor: [
       {
-        family: 'Max',
-        given: 'Mustermann'
+        family: 'Mustermann',
+        given: 'Max'
       }
     ],
     issued: {

@@ -212,19 +212,28 @@ export function packageInfo() {
 
 
 export function loadInfo(info) {
+  console.log('info: ', info)
   extractStyleInfos({cit: info.citation.content.regular, bib: info.bibliography.content})
 
+  console.log('general etalTerm: ', info.general.etalTerm)
   Styler.cslEngine.locale.updateTerm('etal', info.general.etalTerm)
+
+  console.log('citation ibidTerm: ', info.citation.content.special.ibidTerm)
   Styler.cslEngine.updateTerm('ibid', info.citation.content.special.ibidTerm)
 
   generalSettings.name = info.general.title
+  console.log('general name: ', info.general.name)
   generalSettings.author = info.general.name
+  console.log('general summary: ', info.general.summary)
   generalSettings.description = info.general.summary
 
   citSpecials = info.citation.content.special
+  console.warn('citSpecials: ', citSpecials)
 
   citSettings = info.citation.settings
+  console.log('citSettings: ', citSettings)
 
   bibSettings = info.bibliography.settings
+  console.log('bibSettings: ', bibSettings)
 }
 

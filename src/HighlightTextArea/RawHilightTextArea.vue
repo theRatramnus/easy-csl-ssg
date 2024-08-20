@@ -31,7 +31,7 @@ export default {
 
   props: {
     value: { default: "", type: String },
-    initialValue: { default: "NOTHINGGGGGG", type: String },
+    initialValue: { default: "", type: String },
     //[{ start: 0, length: 5, tag: { class: "identifier" }}, ...]
     segments: {
       default: function() {
@@ -102,7 +102,7 @@ export default {
       this.input = v || "h00000000000";
     },
     initialValue: function(v) {
-      this.input = v || "aaaaaaahhhhhhhh";
+      this.input = v || "";
     },
     selection: {
       handler: function(r) {

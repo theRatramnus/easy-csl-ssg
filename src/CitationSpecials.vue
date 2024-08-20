@@ -14,15 +14,26 @@ function updateStylers() {
     styler.update()
   }
 }
+
+watch(model, (newVal) => {
+  console.warn("model changed", newVal)
+})
+
 // eslint-disable-next-line no-unused-vars
 watch(settings, (newVal) => {
+  console.warn("before", newVal, preview)
   update()
+  console.warn("after", newVal, preview)
+})
+
+watch(preview, (newVal) => {
+  console.warn("preview changed", newVal)
 })
 
 function update() {
   try {
     updateStylers()
-     preview.value = Styler.cslEngine.previewCitationSpecials()
+    preview.value = Styler.cslEngine.previewCitationSpecials()
   } catch (error) {
     console.error('Error loading data:', error)
   }
@@ -56,7 +67,7 @@ const segmentsFirstNoteReferenceNumber = computed(() => {
   <div class="flex-container">
     <div>
       <p>{{ uiTexts.subsequentLabel }}</p>
-      <HilightTextArea v-model.lazy="settings.subsequent" :initialValue="settings.subsequent" :segments="segmentsSubsequent" />
+      <HilightTextArea v-model="settings.subsequent" :initialValue="settings.subsequent" :segments="segmentsSubsequent" />
       <p>
         {{ uiTexts.abbreviateNamesSetting }}
       </p>
@@ -64,7 +75,7 @@ const segmentsFirstNoteReferenceNumber = computed(() => {
       <p>
         {{uiTexts.cross_reference}}
       </p>
-      <HilightTextArea v-model.lazy="settings.firstNoteReferenceNumber" :initialValue="settings.firstNoteReferenceNumber" :segments="segmentsFirstNoteReferenceNumber" />
+      <HilightTextArea v-model="settings.firstNoteReferenceNumber" :initialValue="settings.firstNoteReferenceNumber" :segments="segmentsFirstNoteReferenceNumber" />
     </div>
     <div class="output" v-html="preview.subsequent"></div>
   </div>
