@@ -119,7 +119,7 @@ function loadCode(file) {
           <hr/>
           <h2 class="leadingText">{{ uiTexts.openHeading }}</h2>
           <div class="hStack flex-start">
-            <button class="download-button" @click="loadCode(loadFile)" v-if="loadFile">{{ uiTexts.loadButton }}</button>
+            <button class="download-button load-button" @click="loadCode(loadFile)" v-if="loadFile">{{ uiTexts.loadButton }}</button>
             <input type="file" @change="loadFile = $event.target.files[0]" />
           </div>
           <hr/>
@@ -141,6 +141,11 @@ function loadCode(file) {
 </template>
 
 <style>
+.load-button{
+  height: 24px !important;
+  font-size: 1.5em;
+}
+
 .github-link {
     display: block;
     text-decoration: none;
