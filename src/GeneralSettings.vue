@@ -1,14 +1,15 @@
 <script setup>
-import { reactive, watch } from 'vue';
-import { Styler } from './styler';
+import { watch } from 'vue';
+import { Styler, generalSettings } from './styler';
 import { currentLocalization } from './localization';
 const uiTexts = currentLocalization()
-const model = defineModel()
-const settings = reactive(model.value)
 
-watch(settings, (newVal) => {
+
+// eslint-disable-next-line no-unused-vars
+watch(generalSettings, (newVal) => {
     Styler.updateStyle()
 })
+
 </script>
 
 <template>
@@ -16,22 +17,22 @@ watch(settings, (newVal) => {
     <div class="flex-container">
         <div>
             <p>{{ uiTexts.styleName }}</p>
-            <input type="text" v-model.lazy="settings.name" />
+            <input type="text" v-model.lazy="generalSettings.name" />
         </div>
         
         <div>
             <p>{{ uiTexts.styleAuthor }}</p>
-            <input type="text" v-model.lazy="settings.author" />
+            <input type="text" v-model.lazy="generalSettings.author" />
         </div>
 
         <div>
             <p>{{ uiTexts.styleDescription }}</p>
-            <input type="text" v-model.lazy="settings.description" />
+            <input type="text" v-model.lazy="generalSettings.description" />
         </div>
         
         <div>
             <p>{{ uiTexts.etalTerm }}</p>
-            <input type="text" v-model.lazy="settings.etalTerm" />
+            <input type="text" v-model.lazy="generalSettings.etalTerm" />
         </div>
     </div>
 </template>

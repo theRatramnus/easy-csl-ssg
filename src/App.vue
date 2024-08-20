@@ -6,9 +6,6 @@ import {
   getStyle,
   adoptCitationFromBibStylers,
   getStylerIds,
-  bibSettings,
-  citSettings,
-  citSpecials,
   generalSettings,
   packageInfo,
   loadInfo,
@@ -92,7 +89,7 @@ function loadCode(file) {
       <div v-for="id in getStylerIds('bib')" :key="id">
         <StylerComponent :stylerID="id"></StylerComponent>
       </div>
-      <StylerSettings v-model="bibSettings" :prefix="'bib'" />
+      <StylerSettings :prefix="'bib'" />
       <hr class="solid">
       <div class="hStack">
         <h2>{{ uiTexts.citation }}</h2>
@@ -101,8 +98,8 @@ function loadCode(file) {
       <div v-for="id in getStylerIds('cit')" :key="id">
         <StylerComponent :stylerID="id"></StylerComponent>
       </div>
-      <StylerSettings v-model="citSettings" :prefix="'cit'"></StylerSettings>
-      <CitationSpecials v-model="citSpecials"></CitationSpecials>
+      <StylerSettings :prefix="'cit'"></StylerSettings>
+      <CitationSpecials></CitationSpecials>
       <hr class="solid">
       <GeneralSettings v-model="generalSettings" ></GeneralSettings>
       <hr/>

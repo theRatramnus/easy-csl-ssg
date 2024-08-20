@@ -1,10 +1,9 @@
 <script setup>
-import { watch, reactive } from 'vue'
-import { stylers } from './styler'
+import { watch } from 'vue'
+import { stylers, citSettings, bibSettings } from './styler'
 import { currentLocalization } from './localization';
+
 const uiTexts = currentLocalization()
-const model = defineModel()
-const settings = reactive(model.value)
 const props = defineProps(['prefix'])
 const prefix = props.prefix
 function updateStylersWith(prefix) {
@@ -12,6 +11,8 @@ function updateStylersWith(prefix) {
     styler.update()
   }
 }
+
+const settings = props.prefix === 'bib' ? bibSettings : citSettings
 
 // eslint-disable-next-line no-unused-vars
 watch(settings, (newVal) => {

@@ -1,7 +1,7 @@
 import { citables } from './citables'
 import { CSLEngine } from './csl-engine'
 import { CSLCreator } from './csl-creator'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { currentLocalization } from './localization'
 
 const localization = currentLocalization()
@@ -18,19 +18,21 @@ const createInfos = (type) => {
   })
 }
 
-export const generalSettings = localization.generalSettingsDefaults
+export const generalSettings = reactive(localization.generalSettingsDefaults)
 
-export let bibSettings = {
+export let bibSettings = reactive({
   authorDelimiter: ', ',
   etalMin: 4,
   abbreviateNames: false
-}
-export let citSettings = {
+})
+export let citSettings = reactive({
   authorDelimiter: ', ',
   etalMin: 4,
   abbreviateNames: false
-}
-export let citSpecials = localization.citSpecialDefaults
+})
+export let citSpecials = reactive(localization.citSpecialDefaults)
+
+
 
 export class Styler {
   static cslEngine = null
@@ -211,15 +213,19 @@ export function packageInfo() {
 }
 
 
+
+
 export function loadInfo(info) {
   console.log('info: ', info)
   extractStyleInfos({cit: info.citation.content.regular, bib: info.bibliography.content})
-
-  console.log('general etalTerm: ', info.general.etalTerm)
-  Styler.cslEngine.locale.updateTerm('etal', info.general.etalTerm)
+  const etalTerm = info.locale["et-al"]
+  console.log('etalTerm: ', etalTerm)
+  Styler.cslEngine.locale.updateTerm('etal', etalTerm)
+  generalSettings.etalTerm = etalTerm
 
   console.log('citation ibidTerm: ', info.citation.content.special.ibidTerm)
   Styler.cslEngine.updateTerm('ibid', info.citation.content.special.ibidTerm)
+  
 
   generalSettings.name = info.general.title
   console.log('general name: ', info.general.name)
@@ -227,13 +233,13 @@ export function loadInfo(info) {
   console.log('general summary: ', info.general.summary)
   generalSettings.description = info.general.summary
 
-  citSpecials = info.citation.content.special
-  console.warn('citSpecials: ', citSpecials)
+  Object.assign(citSpecials, info.citation.content.special)
+  console.log('citSpecials: ', citSpecials)
 
-  citSettings = info.citation.settings
+  Object.assign(citSettings, info.citation.settings)
   console.log('citSettings: ', citSettings)
 
-  bibSettings = info.bibliography.settings
+  Object.assign(bibSettings, info.bibliography.settings)
   console.log('bibSettings: ', bibSettings)
 }
 

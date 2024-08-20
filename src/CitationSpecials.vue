@@ -1,11 +1,10 @@
 <script setup>
-import { reactive, watch, ref, onMounted, computed } from 'vue'
-import { stylers, Styler } from './styler'
+import { watch, ref, onMounted, computed } from 'vue'
+import { stylers, Styler, citSpecials } from './styler'
 import HilightTextArea from './HighlightTextArea/HilightTextArea.vue';
 import { currentLocalization } from './localization';
 import { getSegments } from './syntax-highlighting';
-const model = defineModel()
-const settings = reactive(model.value)
+
 const preview = ref({ ibid: 'loading', subsequent: 'loading' })
 const uiTexts = currentLocalization()
 function updateStylers() {
@@ -15,16 +14,14 @@ function updateStylers() {
   }
 }
 
-watch(model, (newVal) => {
-  console.warn("model changed", newVal)
-})
 
 // eslint-disable-next-line no-unused-vars
-watch(settings, (newVal) => {
+watch(citSpecials, (newVal) => {
   console.warn("before", newVal, preview)
   update()
   console.warn("after", newVal, preview)
 })
+
 
 watch(preview, (newVal) => {
   console.warn("preview changed", newVal)
@@ -46,11 +43,11 @@ onMounted(() => {
 })
 
 const segmentsSubsequent = computed(() => {
-  return getSegments(settings.subsequent)
+  return getSegments(citSpecials.subsequent)
 });
 
 const segmentsFirstNoteReferenceNumber = computed(() => {
-  return getSegments(settings.firstNoteReferenceNumber)
+  return getSegments(citSpecials.firstNoteReferenceNumber)
 });
 
 </script>
@@ -60,22 +57,22 @@ const segmentsFirstNoteReferenceNumber = computed(() => {
   <div class="flex-container">
     <div>
       <p>{{ uiTexts.ibidTerm }}</p>
-      <input type="text" v-model.lazy="settings.ibidTerm" />
+      <input type="text" v-model.lazy="citSpecials.ibidTerm" />
     </div>
     <div class="output" v-html="preview.ibid"></div>
   </div>
   <div class="flex-container">
     <div>
       <p>{{ uiTexts.subsequentLabel }}</p>
-      <HilightTextArea v-model="settings.subsequent" :initialValue="settings.subsequent" :segments="segmentsSubsequent" />
+      <HilightTextArea v-model="citSpecials.subsequent" :initialValue="citSpecials.subsequent" :segments="segmentsSubsequent" />
       <p>
         {{ uiTexts.abbreviateNamesSetting }}
       </p>
-      <input type="checkbox" v-model.lazy="settings.abbreviateNamesSubsequent" unchecked />
+      <input type="checkbox" v-model.lazy="citSpecials.abbreviateNamesSubsequent" unchecked />
       <p>
         {{uiTexts.cross_reference}}
       </p>
-      <HilightTextArea v-model="settings.firstNoteReferenceNumber" :initialValue="settings.firstNoteReferenceNumber" :segments="segmentsFirstNoteReferenceNumber" />
+      <HilightTextArea v-model="citSpecials.firstNoteReferenceNumber" :initialValue="citSpecials.firstNoteReferenceNumber" :segments="segmentsFirstNoteReferenceNumber" />
     </div>
     <div class="output" v-html="preview.subsequent"></div>
   </div>
