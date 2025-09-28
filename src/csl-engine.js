@@ -54,7 +54,7 @@ export class CSLEngine {
   }
   static async build(lang, citationData) {
     const style = await fetchTextFileContents(
-      'https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-fullnote-bibliography.csl'
+      'https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/acta-societatis-botanicorum-poloniae.csl'
     )
     const locale = await Locale.build(lang)
     return new CSLEngine(citationData, locale, style)
